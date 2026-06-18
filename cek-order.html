@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cek Status Pesanan - Tugas Pintar</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: "#FF69B4", background: "#FFF5FA", text: "#222222" },
+                    fontFamily: { display: ['Plus Jakarta Sans'], body: ['Inter'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #FFF5FA;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF69B4 0%, #ac2471 100%);
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="glass-card rounded-3xl p-8 w-full max-w-md relative overflow-hidden">
+        <!-- Decorative Blob -->
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-2xl -z-10"></div>
+
+        <div class="text-center mb-8 relative z-10">
+            <span class="material-symbols-outlined text-primary text-5xl mb-2">tracking</span>
+            <h1 class="font-display text-2xl font-bold">Cek Status Pesanan</h1>
+            <p class="text-gray-500 text-sm mt-1">Masukkan kode pesanan dari WhatsApp kamu</p>
+        </div>
+
+        <form id="trackerForm" class="space-y-4 relative z-10">
+            <div>
+                <label class="block text-sm font-semibold mb-1.5">Kode Pesanan</label>
+                <input id="orderCode" type="text" required
+                    class="w-full bg-white border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none font-mono tracking-wide uppercase"
+                    placeholder="Contoh: TP-240618-001">
+                <p class="text-xs text-gray-400 mt-1.5">Format: TP-TGL-NO (otomatis dibuat sistem)</p>
+            </div>
+            <button id="checkBtn" type="submit"
+                class="w-full btn-primary text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">search</span> Cek Status
+            </button>
+        </form>
+
+        <!-- Result Area (Hidden by default) -->
+        <div id="resultArea" class="mt-6 hidden relative z-10">
+            <div class="bg-white rounded-xl p-4 border border-gray-100 space-y-3">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="text-xs text-gray-500">Kode Pesanan</span>
+                        <p class="font-mono font-bold text-lg" id="resCode">-</p>
+                    </div>
+                    <span id="resBadge" class="px-3 py-1 rounded-full text-xs font-semibold border">-</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-sm pt-2 border-t border-gray-50">
+                    <div><span class="text-gray-500 text-xs">Nama</span>
+                        <p class="font-semibold" id="resName">-</p>
+                    </div>
+                    <div><span class="text-gray-500 text-xs">Layanan</span>
+                        <p class="font-semibold" id="resService">-</p>
+                    </div>
+                </div>
+
+                <div id="resFileSection" class="hidden pt-2 border-t border-gray-50">
+                    <span class="text-xs text-gray-500">File Hasil</span>
+                    <a id="resFileLink" href="#" target="_blank"
+                        class="flex items-center gap-1 text-primary hover:underline mt-1 font-medium text-sm">
+                        <span class="material-symbols-outlined text-sm">download</span> Lihat / Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="errorArea" class="mt-4 hidden relative z-10">
+            <p class="text-red-500 text-sm text-center bg-red-50 p-2 rounded-lg" id="errorMsg">-</p>
+        </div>
+
+        <div class="mt-6 text-center relative z-10">
+            <a href="index.html" class="text-primary hover:underline text-sm font-medium">← Kembali ke Beranda</a>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- App Script -->
+    <script type="module" src="js/order-tracker.js"></script>
+</body>
+
+</html>

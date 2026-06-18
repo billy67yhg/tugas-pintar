@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tugas Pintar - Solusi Belajar Modern Gen-Z</title>
+    <meta name="description"
+        content="Jasa pembuatan PPT, poster edukasi, dan ringkasan materi untuk siswa SMP dan SMA" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" rel="stylesheet" />
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#FF69B4",
+                        secondary: "#FFB6C1",
+                        background: "#FFF5FA",
+                        text: "#222222"
+                    },
+                    fontFamily: {
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        body: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FFF5FA;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.1);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(255, 105, 184, 0.15) 0%, transparent 40%), radial-gradient(circle at 90% 80%, rgba(255, 182, 193, 0.1) 0%, transparent 40%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF69B4 0%, #ac2471 100%);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .floating-shape {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-20px)
+            }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #FF69B4;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg)
+            }
+
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FF69B4;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-text font-body antialiased hero-gradient overflow-x-hidden transition-colors duration-300">
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-[9999] flex items-center justify-center">
+        <div class="text-center">
+            <div class="loader mx-auto mb-4"></div>
+            <p class="font-display text-primary font-bold">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar"
+        class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl shadow-md transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-3xl">school</span>
+                    <span class="font-display text-2xl font-extrabold text-primary tracking-tight">Tugas Pintar</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#beranda"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium">Beranda</a>
+                    <a href="#layanan"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium">Layanan</a>
+                    <a href="#portofolio"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium">Portofolio</a>
+                    <a href="#faq"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium">FAQ</a>
+                    <a href="#kontak"
+                        class="text-gray-700 dark:text-gray-200 hover:text-primary transition-colors font-medium">Kontak</a>
+                    <button onclick="toggleDarkMode()"
+                        class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <span id="darkModeIcon" class="material-symbols-outlined text-xl">dark_mode</span>
+                    </button>
+                    <a href="#kontak"
+                        class="btn-primary px-6 py-2.5 rounded-full text-white font-semibold shadow-lg">Pesan
+                        Sekarang</a>
+                </div>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+            </div>
+        </div>
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#beranda" class="block py-2 text-gray-700 dark:text-gray-200 hover:text-primary">Beranda</a>
+                <a href="#layanan" class="block py-2 text-gray-700 dark:text-gray-200 hover:text-primary">Layanan</a>
+                <a href="#portofolio"
+                    class="block py-2 text-gray-700 dark:text-gray-200 hover:text-primary">Portofolio</a>
+                <a href="#kontak" class="block py-2 text-gray-700 dark:text-gray-200 hover:text-primary">Kontak</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section id="beranda" class="relative min-h-screen flex items-center overflow-hidden px-4 md:px-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+                <div data-aos="fade-right">
+                    <div
+                        class="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold mb-6 text-sm">
+                        #1 Edu-Tech Partner untuk Gen-Z 🎓</div>
+                    <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">Bikin
+                        Presentasi Sekolah Jadi <span class="text-primary italic">Lebih Menarik</span></h1>
+                    <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-xl">Ubah tugas sekolah yang
+                        membosankan jadi karya visual yang memukau. Dari PPT estetik sampai desain poster, kami bantu
+                        raih nilai terbaik tanpa stres.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                        <a href="#kontak"
+                            class="btn-primary px-8 py-4 rounded-2xl text-white font-bold text-lg shadow-xl flex items-center justify-center gap-2">Pesan
+                            Sekarang <span class="material-symbols-outlined">arrow_forward</span></a>
+                        <a href="#portofolio"
+                            class="px-8 py-4 rounded-2xl border-2 border-gray-300 dark:border-gray-600 font-bold text-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">Lihat
+                            Portofolio</a>
+                    </div>
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="font-display text-3xl font-bold text-primary counter" data-target="100">0</div>
+                            <div class="text-sm text-gray-600">PPT Dibuat</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-display text-3xl font-bold text-primary counter" data-target="50">0</div>
+                            <div class="text-sm text-gray-600">Pelanggan</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-display text-3xl font-bold text-primary counter" data-target="98">0</div>
+                            <div class="text-sm text-gray-600">% Kepuasan</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left">
+                    <div class="absolute top-0 left-0 glass-card p-4 rounded-2xl floating-shape z-10"><span
+                            class="material-symbols-outlined text-primary text-4xl">drive_presentation_outline</span>
+                    </div>
+                    <div class="absolute bottom-10 right-0 glass-card p-4 rounded-2xl floating-shape z-10"
+                        style="animation-delay:2s"><span
+                            class="material-symbols-outlined text-secondary text-4xl">draw</span></div>
+                    <div class="relative z-0">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+                            alt="Student Learning" class="w-full h-auto rounded-3xl shadow-2xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl -z-10 transform rotate-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section (Simplified) -->
+        <section id="layanan" class="py-24 px-4 md:px-8 bg-white/50 dark:bg-gray-900/50">
+            <div class="max-w-7xl mx-auto text-center mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Layanan Unggulan Kami</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Semua yang kamu butuhkan untuk tampil beda di depan
+                    kelas.</p>
+            </div>
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl hover:scale-105 transition-all">
+                    <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 text-primary">
+                        <span class="material-symbols-outlined text-3xl">slideshow</span></div>
+                    <h3 class="font-display text-xl font-bold mb-3">PPT Presentasi</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Template kustom & animasi transisi yang bikin
+                        presentasimu nggak ngebosenin.</p>
+                    <div class="text-primary font-bold text-lg">Mulai Rp 50.000</div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl hover:scale-105 transition-all">
+                    <div
+                        class="w-16 h-16 bg-secondary/40 rounded-2xl flex items-center justify-center mb-6 text-secondary">
+                        <span class="material-symbols-outlined text-3xl">palette</span></div>
+                    <h3 class="font-display text-xl font-bold mb-3">Poster Edukasi</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Desain poster lomba atau tugas yang estetik dengan
+                        layout profesional.</p>
+                    <div class="text-primary font-bold text-lg">Mulai Rp 35.000</div>
+                </div>
+                <div class="glass-card p-8 rounded-3xl hover:scale-105 transition-all">
+                    <div
+                        class="w-16 h-16 bg-gray-400/30 rounded-2xl flex items-center justify-center mb-6 text-gray-600">
+                        <span class="material-symbols-outlined text-3xl">article</span></div>
+                    <h3 class="font-display text-xl font-bold mb-3">Ringkasan Materi</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Ubah catatan berantakan jadi ringkasan visual yang
+                        mudah dihafal.</p>
+                    <div class="text-primary font-bold text-lg">Mulai Rp 30.000</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact/Order Section -->
+        <section id="kontak" class="py-24 px-4 md:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="glass-card rounded-3xl p-8 md:p-16 relative overflow-hidden" data-aos="zoom-in">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+                        <div>
+                            <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Siap Bikin Tugasmu Jadi Pusat
+                                Perhatian?</h2>
+                            <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">Jangan biarkan tugas menumpuk dan
+                                bikin stres. Hubungi kami sekarang!</p>
+                            <div class="space-y-4 mb-8">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">mail</span></div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">Email</div>
+                                        <div class="font-semibold">billylly67@gmail.com</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">phone</span></div>
+                                    <div>
+                                        <div class="text-sm text-gray-600">WhatsApp</div>
+                                        <div class="font-semibold">+62 851-7672-0067</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/6285176720067" target="_blank"
+                                class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg">
+                                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.248 2.248 3.488 5.232 3.488 8.402 0 6.556-5.332 11.891-11.891 11.891-2.01 0-3.991-.51-5.747-1.474l-6.334 1.703zm6.386-4.742c1.549.92 3.05 1.402 4.673 1.402 5.035 0 9.13-4.095 9.13-9.13 0-5.034-4.095-9.129-9.13-9.129-5.035 0-9.13 4.095-9.13 9.129 0 1.988.644 3.86 1.861 5.435l-1.015 3.703 3.811-1.01z" />
+                                </svg>
+                                Chat via WhatsApp
+                            </a>
+                        </div>
+
+                        <!-- Order Form -->
+                        <form id="orderForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Nama Lengkap *</label>
+                                <input id="customerName" type="text" required
+                                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder="Siapa namamu?">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Kelas/Sekolah *</label>
+                                <input id="customerClass" type="text" required
+                                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder="Contoh: X IPA 1 - SMA Negeri 1 Jakarta">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Nomor WhatsApp *</label>
+                                <input id="whatsappNumber" type="tel" required pattern="08[0-9]{9,11}"
+                                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder="08xxxxxxxxxx">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Jenis Layanan *</label>
+                                <select id="serviceType" required
+                                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:ring-2 focus:ring-primary outline-none">
+                                    <option value="">Pilih Layanan</option>
+                                    <option value="PPT Presentasi">PPT Presentasi - Mulai Rp 50.000</option>
+                                    <option value="Poster Edukasi">Poster Edukasi - Mulai Rp 35.000</option>
+                                    <option value="Ringkasan Materi">Ringkasan Materi - Mulai Rp 30.000</option>
+                                    <option value="Format Makalah">Format Makalah - Mulai Rp 25.000</option>
+                                    <option value="Desain Cover">Desain Cover - Mulai Rp 20.000</option>
+                                    <option value="Infografis">Infografis - Mulai Rp 40.000</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Pesan / Detail Tugas *</label>
+                                <textarea id="orderMessage" required rows="4"
+                                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl p-4 focus:ring-2 focus:ring-primary outline-none"
+                                    placeholder="Ceritain sedikit tentang tugasmu..."></textarea>
+                            </div>
+                            <button id="submitBtn" type="submit"
+                                class="w-full btn-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined">send</span> Kirim Pesanan
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-gray-100 dark:bg-gray-900 border-t border-gray-300 dark:border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">school</span>
+                <span class="font-display text-xl font-bold text-primary">Tugas Pintar</span>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-6">Solusi pengerjaan tugas kreatif paling sat-set
+                untuk pelajar masa kini.</p>
+            <p class="text-gray-500 text-xs">© 2024 Tugas Pintar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/6285176720067" target="_blank"
+        class="fixed bottom-6 right-6 bg-[#25D366] hover:bg-[#128C7E] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50 flex items-center gap-2 group">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.248 2.248 3.488 5.232 3.488 8.402 0 6.556-5.332 11.891-11.891 11.891-2.01 0-3.991-.51-5.747-1.474l-6.334 1.703zm6.386-4.742c1.549.92 3.05 1.402 4.673 1.402 5.035 0 9.13-4.095 9.13-9.13 0-5.034-4.095-9.129-9.13-9.129-5.035 0-9.13 4.095-9.13 9.129 0 1.988.644 3.86 1.861 5.435l-1.015 3.703 3.811-1.01z" />
+        </svg>
+        <span
+            class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 whitespace-nowrap font-semibold">Chat
+            Kami</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
