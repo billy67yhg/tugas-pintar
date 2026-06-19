@@ -43,16 +43,32 @@ function setupOrderForm() {
 
         try {
             // Collect Form Data
+            const customerName = document.getElementById('customerName').value.trim();
+            const customerClass = document.getElementById('customerClass').value.trim();
+            const whatsappNumber = document.getElementById('whatsappNumber').value.trim();
+            const serviceType = document.getElementById('serviceType').value;
+            const message = document.getElementById('orderMessage').value.trim();
+
+            // 🔥 BUAT KODE PESANAN DI JAVASCRIPT (bukan database)
+            const today = new Date();
+            const datePart = today.getFullYear().toString().slice(-2) +
+                String(today.getMonth() + 1).padStart(2, '0') +
+                String(today.getDate()).padStart(2, '0');
+            const randomNum = Math.floor(Math.random() * 900) + 100;
+            const orderCode = `TP-${datePart}-${randomNum}`;
+
+            // Data yang dikirim ke Supabase
             const orderData = {
-                customer_name: document.getElementById('customerName').value.trim(),
-                customer_class: document.getElementById('customerClass').value.trim(),
-                whatsapp_number: document.getElementById('whatsappNumber').value.trim(),
-                service_type: document.getElementById('serviceType').value,
-                message: document.getElementById('orderMessage').value.trim(),
+                order_code: orderCode,
+                customer_name: customerName,
+                customer_class: customerClass,
+                whatsapp_number: whatsappNumber,
+                service_type: serviceType,
+                message: message,
                 status: 'menunggu'
             };
 
-            // Insert to Supabase
+            // Insert ke Supabase
             const { data, error } = await supabase
                 .from('orders')
                 .insert([orderData])
@@ -62,9 +78,9 @@ function setupOrderForm() {
             if (error) throw error;
 
             // Success Feedback
-            showNotification('Pesanan berhasil disimpan! 🎉', 'success');
+            showNotification(`Pesanan berhasil dikirim! Kode: ${orderCode} 🎉`, 'success');
 
-            // Open WhatsApp with formatted message
+            // Open WhatsApp
             const waMessage = formatOrderMessage(data);
             setTimeout(() => {
                 sendToWhatsApp(ADMIN_WHATSAPP, waMessage);
@@ -75,7 +91,7 @@ function setupOrderForm() {
             console.error('❌ Order submission failed:', err);
             showNotification('Gagal simpan ke database. Langsung chat WA saja.', 'error');
 
-            // Fallback: Direct to WA even if DB fails
+            // Fallback to WhatsApp
             const fallbackData = {
                 customer_name: document.getElementById('customerName').value,
                 customer_class: document.getElementById('customerClass').value,
